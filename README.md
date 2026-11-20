@@ -28,9 +28,26 @@ pip install ollama
 ```
 
 ## Usage
+Run from the project root:
 ```
-python tools/triage.py
+python -m tools.triage
 ```
+
+## Configuration
+All tunable settings live in [`config.py`](config.py):
+
+| Setting | Default | What it does |
+|---|---|---|
+| `MODEL` | `llama3.1:8b` | Which Ollama model to use |
+| `NUM_CTX` | `8192` | How many tokens the model can read at once (more uses more RAM) |
+| `TEMPERATURE` | `0` | `0` gives consistent answers, higher gives more varied ones |
+| `MAX_CHARS` | `12000` | Longer messages are cut and flagged as truncated |
+
+To try a different model without editing the file, set the `ASSISTANT_MODEL` environment variable. In PowerShell:
+```
+$env:ASSISTANT_MODEL = "llama3.2:3b"
+```
+Make sure you've pulled the model first with `ollama pull <model>`.
 
 ## Project structure
 ```
