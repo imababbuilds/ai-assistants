@@ -2,9 +2,7 @@ import ollama
 from pydantic import BaseModel
 from typing import Literal
 
-MODEL = "llama3.1:8b"
-NUM_CTX = 8192      # how many tokens the model can read at once
-MAX_CHARS = 12000   # roughly 3,000 tokens, leaving room for the prompt and reply
+from config import MODEL, NUM_CTX, TEMPERATURE, MAX_CHARS
 
 SYSTEM_PROMPT = """You are a professional secretary who triages incoming messages for your boss.
 
@@ -22,7 +20,7 @@ class Triage(BaseModel):
     category: Literal["urgent", "needs_reply", "fyi", "ignore"]
     summary: str
     suggested_action: str
-    truncated: bool = False  # set by our code, not the model
+    truncated: bool = False  
 
 
 def triage(message: str) -> Triage:
@@ -48,7 +46,7 @@ def triage(message: str) -> Triage:
             {"role": "user", "content": message},
         ],
         format=Triage.model_json_schema(),
-        options={"temperature": 0, "num_ctx": NUM_CTX},
+        options={"temperature": TEMPERATURE, "num_ctx": NUM_CTX},
     )
 
     result = Triage.model_validate_json(response["message"]["content"])
