@@ -5,8 +5,8 @@ A collection of personal AI assistants that run **fully locally** using
 
 ## Status
 Early development. Currently working:
-- `triage` tool: classifies an incoming message as urgent / needs reply / fyi / ignore,
-  with a summary and a suggested action (structured JSON output)
+- `triage`: classifies an incoming message as urgent / needs reply / fyi / ignore, with a summary and a suggested action (structured JSON output)
+- `draft_reply`: drafts a reply to a message as a structured `Draft` (subject, body, and a `needs_review` flag that is set when the draft contains `[placeholders]` the user must fill in). An optional `instructions` argument lets you say what the reply should convey
 
 ## Planned assistants
 - **The Secretary**: gatekeeper and triage for incoming messages
@@ -31,6 +31,7 @@ pip install ollama
 Run from the project root:
 ```
 python -m tools.triage
+python -m tools.draft_reply
 ```
 
 ## Configuration

@@ -8,3 +8,6 @@ TEMPERATURE = 0       # 0 = consistent answers, higher = more varied
 
 # Triage
 MAX_CHARS = 12000     # longer messages are cut and flagged as truncated
+
+# Draft Reply
+DRAFT_TEMPERATURE = 0.5   # replies: a little variety, still professional
