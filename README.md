@@ -92,7 +92,8 @@ git clone https://github.com/imababbuilds/ai-assistants.git
 cd ai-assistants
 python -m venv .venv
 .venv\Scripts\activate      # Mac/Linux: source .venv/bin/activate
-pip install ollama
+pip install ollama python-dotenv
+Copy-Item .env.example .env   # Mac/Linux: cp .env.example .env
 ```
 
 ## Tests
@@ -115,15 +116,12 @@ All tunable settings live in [`config.py`](config.py):
 | `NOTES_FILE` | `data/notes.json` | Where saved notes are stored (not committed to git) |
 | `SUGGESTED_TAGS` | `preference`, `todo`, `reminder`, `info` | Tags the assistants are nudged to use on notes. Other tags are still allowed |
 
-To try a different model without editing the file, set the `ASSISTANT_MODEL` environment variable. In PowerShell:
-```
-$env:ASSISTANT_MODEL = "llama3.2:3b"
-```
-Make sure you've pulled the model first with `ollama pull <model>`.
+Secrets and machine-specific values go in a `.env` file (copy `.env.example` to create it). It isn't committed to git. For example, set `ASSISTANT_MODEL` there to try a different model, after pulling it with `ollama pull <model>`. A real environment variable overrides the value in `.env`.
 
 ## Project structure
 ```
 config.py          settings shared by all assistants
+.env.example       template for your own .env (never commit .env)
 tools/             reusable skills shared by all assistants
   messages/        triage, draft_reply
   notes/           store, save_note, manage_notes
