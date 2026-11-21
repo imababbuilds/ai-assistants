@@ -1,4 +1,8 @@
 """Central settings. Edit this file to tailor the assistants."""
+from dotenv import load_dotenv
+
+load_dotenv()  # reads .env if it exists; real environment variables take priority
+
 import os
 
 # Model
