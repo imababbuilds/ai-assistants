@@ -7,6 +7,10 @@ A collection of personal AI assistants that run **fully locally** using
 Early development. Currently working:
 - `triage`: classifies an incoming message as urgent / needs reply / fyi / ignore, with a summary and a suggested action (structured JSON output)
 - `draft_reply`: drafts a reply to a message as a structured `Draft` (subject, body, and a `needs_review` flag that is set when the draft contains `[placeholders]` the user must fill in). An optional `instructions` argument lets you say what the reply should convey
+- Notes tools, stored in one shared local file:
+  - `save_note`: saves a note (text, tags, which assistant saved it) and skips exact duplicates
+  - `complete_note`, `supersede_note`, `delete_note`: mark a note done or out of date, or delete it (deleting needs the boss's approval)
+  - `check_conflicts`: flags notes that contradict or replace another note, for the boss to review
 
 ## Planned assistants
 Each assistant has its own personality and tools, built on a shared core.
@@ -94,8 +98,10 @@ pip install ollama
 ## Usage
 Run from the project root:
 ```
-python -m tools.triage
-python -m tools.draft_reply
+python -m tools.messages.triage
+python -m tools.messages.draft_reply
+python -m tools.notes.save_note
+python -m tools.notes.manage_notes
 ```
 
 ## Configuration
@@ -106,7 +112,10 @@ All tunable settings live in [`config.py`](config.py):
 | `MODEL` | `llama3.1:8b` | Which Ollama model to use |
 | `NUM_CTX` | `8192` | How many tokens the model can read at once (more uses more RAM) |
 | `TEMPERATURE` | `0` | `0` gives consistent answers, higher gives more varied ones |
+| `DRAFT_TEMPERATURE` | `0.5` | Variety in drafted replies, so regenerating gives a different draft |
 | `MAX_CHARS` | `12000` | Longer messages are cut and flagged as truncated |
+| `NOTES_FILE` | `data/notes.json` | Where saved notes are stored (not committed to git) |
+| `SUGGESTED_TAGS` | `preference`, `todo`, `reminder`, `info` | Tags the assistants are nudged to use on notes. Other tags are still allowed |
 
 To try a different model without editing the file, set the `ASSISTANT_MODEL` environment variable. In PowerShell:
 ```
@@ -116,8 +125,12 @@ Make sure you've pulled the model first with `ollama pull <model>`.
 
 ## Project structure
 ```
-tools/        reusable skills shared by all assistants
-assistants/   (coming soon) each assistant's prompt, tools and loop
+config.py          settings shared by all assistants
+tools/             reusable skills shared by all assistants
+  messages/        triage, draft_reply
+  notes/           store, save_note, manage_notes
+data/              files created while running (not committed)
+assistants/        (coming soon) each assistant's prompt, tools and loop
 ```
 
 ## License
