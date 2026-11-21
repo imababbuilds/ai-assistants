@@ -52,22 +52,3 @@ def triage(message: str) -> Triage:
     result = Triage.model_validate_json(response["message"]["content"])
     result.truncated = truncated  # overwrite whatever the model put here
     return result
-
-
-if __name__ == "__main__":
-    samples = [
-        "From boss: Need the Q3 report by 5pm today.",
-        "From Dana: Want to grab lunch sometime next week?",
-        "",
-        "From Amazon: 50% OFF everything this weekend only!!!",
-        "From boss: Please review the attached notes. " + "More details here. " * 2000,
-    ]
-    for msg in samples:
-        result = triage(msg)
-        print(f"MESSAGE:  {msg[:80]}")
-        print(f"CATEGORY: {result.category}")
-        print(f"SUMMARY:  {result.summary}")
-        print(f"ACTION:   {result.suggested_action}")
-        if result.truncated:
-            print("WARNING:  Message was too long, only the first part was read")
-        print()

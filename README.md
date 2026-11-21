@@ -4,7 +4,7 @@ A collection of personal AI assistants that run **fully locally** using
 [Ollama](https://ollama.com) and Python. No API keys, no usage costs.
 
 ## Status
-Early development. Currently working:
+Early development. There's no assistant to run yet. These building blocks are working and covered by the test suite:
 - `triage`: classifies an incoming message as urgent / needs reply / fyi / ignore, with a summary and a suggested action (structured JSON output)
 - `draft_reply`: drafts a reply to a message as a structured `Draft` (subject, body, and a `needs_review` flag that is set when the draft contains `[placeholders]` the user must fill in). An optional `instructions` argument lets you say what the reply should convey
 - Notes tools, stored in one shared local file:
@@ -95,13 +95,11 @@ python -m venv .venv
 pip install ollama
 ```
 
-## Usage
-Run from the project root:
+## Tests
 ```
-python -m tools.messages.triage
-python -m tools.messages.draft_reply
-python -m tools.notes.save_note
-python -m tools.notes.manage_notes
+pip install pytest
+pytest              # fast tests, no model needed
+pytest -m llm       # tests that call the model (slower)
 ```
 
 ## Configuration
@@ -129,6 +127,7 @@ config.py          settings shared by all assistants
 tools/             reusable skills shared by all assistants
   messages/        triage, draft_reply
   notes/           store, save_note, manage_notes
+tests/             automated tests
 data/              files created while running (not committed)
 assistants/        (coming soon) each assistant's prompt, tools and loop
 ```
