@@ -9,8 +9,65 @@ Early development. Currently working:
 - `draft_reply`: drafts a reply to a message as a structured `Draft` (subject, body, and a `needs_review` flag that is set when the draft contains `[placeholders]` the user must fill in). An optional `instructions` argument lets you say what the reply should convey
 
 ## Planned assistants
-- **The Secretary**: gatekeeper and triage for incoming messages
-- **The Intern**: research and file-summarizing tasks
+Each assistant has its own personality and tools, built on a shared core.
+
+### Front office
+
+#### The Secretary
+Manages the boss's inbox, time and communications.
+- [x] Triage incoming messages (urgent / needs reply / FYI / ignore)
+- [x] Draft replies
+- [ ] Read reports and brief the boss, summarizing them and flagging anything that needs attention
+- [ ] Send emails and messages (after the boss approves the draft)
+- [ ] Set and manage reminders
+- [ ] Manage the calendar: schedule, confirm and reschedule meetings
+- [ ] Reach out to people to confirm or coordinate (stretch goal)
+
+### Projects
+Work items can be created in GitHub Issues or Azure DevOps (set in `config.py`, access tokens in `.env`).
+
+#### The Researcher
+Gathers what a decision needs, from sources you can check.
+- [ ] Take a goal ("find a better way to do X", "an alternative to A for B") and research options
+- [ ] Report pros, cons and limitations for each option, with sources cited
+- [ ] After the user approves an option, hand off to the Project Manager to turn it into a project plan with a proposed timeline
+
+#### The Project Manager
+Turns approved ideas into plans and keeps them on track.
+- [ ] Write project proposals and plans with ordered tasks and a proposed timeline
+- [ ] Track progress from work items and report status, overdue items and blockers
+
+#### The Intern
+Takes on tedious setup work, following instructions.
+- [ ] Scaffold new projects (for example, an empty API project) from a template describing the company's folder structure and naming conventions
+- [ ] Create work items in order from an existing project plan, ready to assign
+
+#### The Debugger
+Reviews code, finds problems and reports them.
+- [ ] Find bugs and file them as work items with reproduction steps and relevant context
+- [ ] Suggest improvements and file them as work items
+
+### Data and finance
+
+#### The Bookkeeper
+Keeps financial records accurate and organized.
+- [ ] Extract details from receipts and invoices (vendor, date, amount, category)
+- [ ] Categorize expenses and check that totals add up
+- [ ] Prepare expense reports
+
+#### The Analyst
+Digs into data and answers questions about it.
+- [ ] Answer questions about spreadsheets and CSV files, with calculations done in code so the numbers are exact
+- [ ] Find trends and outliers and explain them in plain language
+- [ ] Produce a written analysis on request
+
+### People
+
+#### The Mentor
+Helps new hires get up to speed on how the office works.
+- [ ] Answer questions about the company's workflows and standards, based on the company's own documents
+- [ ] Give newcomers templates for common tasks, naming conventions and file organization
+- [ ] Spot where a described situation deviates from or breaks the documented workflow
 
 ## Requirements
 - Python 3.10+
