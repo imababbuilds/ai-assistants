@@ -11,3 +11,15 @@ MAX_CHARS = 12000     # longer messages are cut and flagged as truncated
 
 # Draft Reply
 DRAFT_TEMPERATURE = 0.5   # replies: a little variety, still professional
+
+# Notes
+NOTES_FILE = "notes.json"   # where notes are saved (not committed to git)
+SUGGESTED_TAGS = [          # shown to the model; other tags are still allowed
+    "preference",
+    "decision",
+    "deadline",
+    "contact",
+    "meeting",
+    "todo",
+    "reminder",             # only when no other type fits
+]
