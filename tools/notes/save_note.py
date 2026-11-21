@@ -52,13 +52,3 @@ def save_note(text: str, tags: list[str] | None = None, source: str = "unknown")
     notes.append(note)
     write_notes(notes)
     return note
-
-
-if __name__ == "__main__":
-    note = save_note(
-        "Dana prefers Thursday lunches",
-        tags=["Dana", "lunch", "preference"],
-        source="secretary",
-    )
-    print(f"Saved: {note}")
-    print(f"Total notes: {len(load_notes())}")

@@ -117,39 +117,3 @@ def check_conflicts(note_id: str) -> ConflictReport:
     valid_ids = {n.id for n in candidates}
     report.conflicts = [c for c in report.conflicts if c.note_id in valid_ids]
     return report
-
-
-if __name__ == "__main__":
-    from tools.notes.save_note import save_note
-
-    # 1. Complete and delete
-    todo = save_note(
-        "Call Dana about Thursday lunch",
-        tags=["dana", "todo"],
-        source="secretary",
-    )
-    print(f"Saved:     {todo.id} ({todo.status})")
-    print(f"Completed: {complete_note(todo.id).status}")
-    delete_note(todo.id)
-    print(f"Deleted. Total notes: {len(load_notes())}")
-
-    # 2. Conflict check
-    old = save_note(
-        "Dana prefers Thursday lunches",
-        tags=["dana", "preference"],
-        source="secretary",
-    )
-    new = save_note(
-        "Dana now prefers Tuesday lunches",
-        tags=["dana", "preference"],
-        source="secretary",
-    )
-    report = check_conflicts(new.id)
-    if report.conflicts:
-        for c in report.conflicts:
-            print(f"CONFLICT with {c.note_id}: {c.reason}")
-    else:
-        print("No conflicts found.")
-
-    delete_note(old.id)  # clean up the test notes
-    delete_note(new.id)

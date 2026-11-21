@@ -64,23 +64,3 @@ def draft_reply(message: str, instructions: str = "") -> Draft:
     # Our code decides this, not the model: does the body contain a [placeholder]?
     draft.needs_review = bool(re.search(r"\[.+?\]", draft.body))
     return draft
-
-
-if __name__ == "__main__":
-    samples = [
-        ("From boss: Need the Q3 report by 5pm today.", ""),
-        ("From boss: Need the Q3 report by 5pm today.", "tell him it's done and I'll send it at 3"),
-        ("From Dana: Want to grab lunch sometime next week?", ""),
-        ("From Dana: Want to grab lunch sometime next week?", "say yes, Thursday works"),
-        ("From Lee: Can you send me last month's expense report?", ""),
-    ]
-    for msg, instructions in samples:
-        draft = draft_reply(msg, instructions)
-        print(f"MESSAGE:      {msg}")
-        if instructions:
-            print(f"INSTRUCTIONS: {instructions}")
-        print(f"SUBJECT:      {draft.subject}")
-        print(f"BODY:\n{draft.body}")
-        if draft.needs_review:
-            print("REVIEW:       Contains placeholders the user needs to fill in")
-        print()
