@@ -23,6 +23,13 @@ Manages the boss's inbox, time and communications.
 - [ ] Manage the calendar: schedule, confirm and reschedule meetings
 - [ ] Reach out to people to confirm or coordinate (stretch goal)
 
+#### The Scribe
+Turns meetings into clear records and follow-ups.
+- [ ] Turn meeting notes or transcripts into minutes with a short summary
+- [ ] Extract decisions and action items, with owners and due dates when mentioned
+- [ ] File action items as work items
+- [ ] Save meeting notes and search past ones
+
 ### Projects
 Work items can be created in GitHub Issues or Azure DevOps (set in `config.py`, access tokens in `.env`).
 
